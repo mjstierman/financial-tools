@@ -19,14 +19,23 @@
 # Nelnet AI       (-$)
 # NET WORTH:      ($SUM)
 
+import argparse
 import pandas
+from datetime import datetime
 
-# Add a feature to allow importing different CSVs with CLI rather than hard coding
-# e.g. `python3 ./dashboard.py -a <accounts>.csv -d <daybook.csv>`
+parser = argparse.ArgumentParser()
+parser.add_argument("-a", "--accounts", type=open, default="accounts.csv", help="Location of list of accounts in csv format. Default is accounts.csv")
+parser.add_argument("-d", "--daybook", type=open, default="daybook.csv", help="Location of the daybook/journal in csv format. Default is daybook.csv")
+args = parser.parse_args()
 
-current_month = $month
-todays_date = $today
-daybook_data = pandas.read_csv('daybook.csv')
-accounts_data = pandas.read_csv('accounts.csv')
+current_month = datetime.today().strftime('%m')
+todays_date = datetime.today().strftime('%Y-%m-%d')
+accounts_data = pandas.read_csv(args.accounts)
+daybook_data = pandas.read_csv(args.daybook)
 
-print(daybook_data)
+# This Month dashboard
+def dashboard()
+
+# Net Worth Calculator
+def net_worth()
+	

@@ -1,7 +1,7 @@
 # This calculator includes fields for common recurring expenses
 # As well as projected income.
-# Simply input your predicted expenses and income, then run
-# the calculator.
+# Simply input your predicted expenses and income in the scenario_data.py
+# then run the calculator.
 # You will see NET INCOME and also calculations for savings
 # goals based on 3- 6- 12- month buffers.
 # 
@@ -36,19 +36,31 @@ net_savings = net_income-net_spend
 gross_savings = net_income-net_spend+((pretax_retire_contrib+pretax_retire_match)*pretax_income)
 
 # Print the report to STDOUT
-print('Here is your report')
-print('Your take-home pay is ', locale.currency(net_income))
-print('Your taxes are about  ', locale.currency(income_taxes))
-print('Your expenses are     ', locale.currency(net_spend))
-print('Your net month savings', locale.currency(net_savings))
-print()
-print('You are saving', format(gross_savings/net_income,".1%"),'of your income')
-print('You are spending', format(net_spend/net_income,".1%"),'of your income')
-print()
-print('Your 3-month reserve  ', locale.currency(net_spend*3))
-print('Your 6-month reserve  ', locale.currency(net_spend*6))
-print('Your 12-month reserve ', locale.currency(net_spend*12))
-print()
-print('To reach a 12 month reserve, ')
-print('you would need to save for ')
-print('                      ', round(net_spend*12/net_savings), 'months.')
+def print_report():
+	print('Here is your report:')
+	print('Your take-home pay is ', locale.currency(net_income))
+	print('Your taxes are about  ', locale.currency(income_taxes))
+	print('Your expenses are     ', locale.currency(net_spend))
+	print('Your net month savings', locale.currency(net_savings))
+	print()
+	print('You are saving', format(gross_savings/net_income,".1%"),'of your income')
+	print('You are spending', format(net_spend/net_income,".1%"),'of your income')
+	print()
+	print('Your 3-month reserve  ', locale.currency(net_spend*3))
+	print('Your 6-month reserve  ', locale.currency(net_spend*6))
+	print('Your 12-month reserve ', locale.currency(net_spend*12))
+	print()
+	print('To reach a 12 month reserve, ')
+	print('you would need to save for ')
+	print('                      ', round(net_spend*12/net_savings), 'months.')
+
+# If the export feature is used, include the variables in the report
+def print_vars():
+	print('These are the values you used:')
+	vars = globals()
+	for name in vars:
+		if not name.startswith('__'):
+			value = eval(name) 
+			print(name,":", value) 
+
+print_report()
