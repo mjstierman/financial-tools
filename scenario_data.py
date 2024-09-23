@@ -45,3 +45,31 @@ phone_cellular = 16.76
 phone_landline = 0
 discrectionary = 0
 large_purchase = 0
+
+# States with no income tax
+AK = 0
+FL = 0
+NH = 0
+NV = 0
+SD = 0
+TN = 0
+TX = 0
+WA = 0
+WY = 0
+
+# States with flat income tax
+AZ = .025
+CO = .044
+GA = .0549
+IA = .039
+ID = .058
+IL = .0495
+IN = .0305
+KY = .04
+MI = .0425
+NC = .045
+PA = .0307
+UT = .0465
+
+# States with progressive tax
+# meh.

@@ -18,6 +18,18 @@
 # Auto loan     (-$)
 # NET WORTH:    ($SUM)
 
+try:
+	import matplotlib
+except:
+	sys.exit("This script requires matplotlib. Please install 'pip3 install matplotlib'")
+	exit()
+
+try:
+	import pandas
+except:
+	sys.exit("This script requires pandas. Please install 'pip3 install pandas'")
+	exit()
+
 import argparse
 import pandas
 from datetime import datetime
@@ -31,15 +43,21 @@ parser.add_argument("-e", "--end", type=ascii, help="Format YYYY-MM-DD. End Date
 args = parser.parse_args()
 
 # Set up some variables 
+#
+# Would like to add some validation here for the start_date and end_date to ensure ISO
+# Would also like the default start/end to be the actual beginning/end of the records
+# rather than, essentially, a 10000 year span.
+#
+# todays_date is currently unused.
 todays_date = datetime.today().strftime('%Y-%m-%d')
 if args.start:
 	start_date = args.start
 else:
-	start_date = "0001-01-01"
+	start_date = "'0001-01-01'"
 if args.end:
 	end_date = args.end
 else:
-	end_date = "9999-12-31"
+	end_date = "'9999-12-31'"
 accounts_data = pandas.read_csv(args.accounts)
 daybook_data = pandas.read_csv(args.daybook)
 
@@ -49,24 +67,28 @@ daybook_data = pandas.read_csv(args.daybook)
 	# total spend in each OpEx category
 	# and how much is left in the envelope
 
-def pivot_table():
+def spending_report():
 	# Format the 'Date' column to be a date datatype
 	daybook_data['Date'] = pandas.to_datetime(daybook_data['Date'], format='%Y-%m-%d')
 	# Filter the DataFrame based on whether start and end dates were provided
 	filtered_df = daybook_data.loc[(daybook_data['Date'] >= start_date) & (daybook_data['Date'] <= end_date)]
 	table = filtered_df.pivot_table(index="Date", columns="Category", values="Amount", aggfunc='sum', fill_value=0, margins=True)
+	# Print the resulting pivot table
 	print(table)
 
 # Net Worth Calculator
-# def net_worth():
-	# find latest date in CSV
-	# get all accounts for latest date
-	# for each account print name, value
-	# then sum all values; print result
+def net_worth():
+	# Format the 'Date' column to be a date datatype
+	accounts_data['Date'] = pandas.to_datetime(accounts_data['Date'], format="%Y-%m-%d")
+	# Filter the DataFrame based on whether start and end dates were provided
+	filtered_df = accounts_data.loc[(accounts_data['Date'] >= start_date) & (accounts_data['Date'] <= end_date)]
+	# define pivot table bounds
+	table = filtered_df.pivot_table(index="Date", columns="Class", values="Balance", aggfunc='sum', fill_value=0, margins=True)
+	# Print the resulting pivot table
+	print(table)
 
-# def net_worth_over_time(time.length):
-	# do net_worth() for each day in the csv
-	# plot it over the length of time specified
-	# default is all time
-
-pivot_table()
+print("################ Report for",start_date,"through",end_date,"#################")
+print("################################ Spending Report ##############################")
+spending_report()
+print("################################### Net Worth #################################")
+net_worth()
