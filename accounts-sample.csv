@@ -1,0 +1,21 @@
+Date,Account,Class,Bank,Balance
+2024-01-01,Checking,Cash,"My Credit Union",3000
+2024-01-01,Savings,Cash,"My Credit Union",6000
+2024-01-01,"Credit Card",Debt,Barclays,-1234.22
+2024-01-01,401K,Investment,RetireCo,59876
+2024-01-01,"Auto Loan",Debt,"My Credit Union".-15500
+2024-02-01,Checking,Cash,"My Credit Union",2500
+2024-02-01,Savings,Cash,"My Credit Union",6000
+2024-02-01,"Credit Card",Debt,Barclays,-1111.11
+2024-02-01,401K,Investment,RetireCo,61234
+2024-02-01,"Auto Loan",Debt,"My Credit Union".-15250
+2024-03-01,Checking,Cash,"My Credit Union",2200
+2024-03-01,Savings,Cash,"My Credit Union",6000
+2024-03-01,"Credit Card",Debt,Barclays,-998.50
+2024-03-01,401K,Investment,RetireCo,62987
+2024-03-01,"Auto Loan",Debt,"My Credit Union".-15000
+2024-04-01,Checking,Cash,"My Credit Union",2000
+2024-04-01,Savings,Cash,"My Credit Union",6000
+2024-04-01,"Credit Card",Debt,Barclays,-500
+2024-04-01,401K,Investment,RetireCo,67987
+2024-04-01,"Auto Loan",Debt,"My Credit Union".-14750

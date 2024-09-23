@@ -8,8 +8,15 @@
 # It's not perfect, since not all months have the same number of paychecks.
 # The calculator assumes 40 hour work weeks.
 
+import argparse
 import locale
 from scenario_data import *
+
+# parser = argparse.ArgumentParser()
+# parser.add_argument("-f", "--file", type=open, default="scenario_data.py", help="Scenario variable file. Default `scenario_data.py`")
+# parser.add_argurment("-e", "--export", help="Use this to export to a file. Usage: scenarios.py -e scenario_a.txt")
+# args = parser.parse_args()
+# from args.file import *
 
 # Format currency
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')

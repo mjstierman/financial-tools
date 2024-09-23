@@ -7,7 +7,7 @@ import pandas
 
 # Grab input from cli arguments
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--daybook", type=open, default="daybook.csv", help="Location of the daybook/journal in csv format. Default is daybook.csv")
+parser.add_argument("-d", "--daybook", type=open, default="daybook-sample.csv", help="Location of the daybook/journal in csv format. Default is daybook.csv")
 args = parser.parse_args()
 
 # Input vars
