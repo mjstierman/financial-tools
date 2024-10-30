@@ -27,7 +27,7 @@ def budget_spend():
 
 def spending_report():
 	# Format the 'Date' column to be a date datatype
-	daybook_data['Date'] = pandas.to_datetime(daybook_data['Date'], format='%Y-%m-%d')
+	daybook_data['Date'] = pandas.to_datetime(daybook_data['Date'])
 	converted_start_date = pandas.to_datetime(start_date, format='%Y-%m-%d')
 	converted_end_date = pandas.to_datetime(end_date, format='%Y-%m-%d')
 	# Filter the DataFrame based on first and last days of the month
@@ -38,6 +38,6 @@ def spending_report():
 	# Print the resulting pivot table
 	print(table)
 
-budget_spend()
+# budget_spend()
 print()
 spending_report()

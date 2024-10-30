@@ -8,7 +8,7 @@ Is a python script that calculates monthly budget items
 ### **daybook-sample.csv** 
 Contains point-in-time records of receipts (money in, out)
 ### **reports.py** 
-Nothing yet.
+Shows monthly budget digest
 ### **scenarios.py** 
 Is a calculator to show impact of income/expense changes on savings and expenditures
 ### **scenario_data.py**

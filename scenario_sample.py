@@ -9,13 +9,13 @@
 
 # Pre Tax
 pretax_income = 3000
-pretax_insurance_health = 0
+pretax_insurance_health = 150
 pretax_insurance_dental = 0
 pretax_insurance_vision = 0
 pretax_insurance_life = 0
 pretax_retire_contrib = .06
 pretax_retire_match = .03
-taxes_income_rate = .26
+federal_tax_rate = .26
 # Post Tax
 insurance_legal = 0
 other_income = 0
