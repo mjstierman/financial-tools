@@ -13,25 +13,22 @@ import locale
 from scenario_sample import *
 
 # TODO: Add argument to select variable file
-# TODO: Add arguemnt to print-to-file scenario report
-# TODO: After state tax calculations are complete, implement the argument to select
+# TODO: Add argument to print-to-file scenario report
 # parser = argparse.ArgumentParser()
 # parser.add_argument("-f", "--file", type=open, default="scenario_data.py", help="Scenario variable file. Default `scenario_data.py`")
 # parser.add_argument("-e", "--export", help="Use this to export to a file. Usage: scenarios.py -e scenario_a.txt")
-# parser.add_argument("-s, --state", help="Enter a two-character code for a US state. Current supported states are AK AZ CO FL GA IA ID IL IN KY MI NC NH NV PA SD TN TX UT WA WY")
 # args = parser.parse_args()
 
 # Format currency
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
-# Do some math
 # Calculate Net Icnome
 deductions = (pretax_insurance_health - pretax_insurance_dental - pretax_insurance_vision - pretax_insurance_life - (pretax_income*pretax_retire_contrib))
 net_income = pretax_income - deductions + other_income
 # TODO: implement actual federal tax calculations using prosessive scale
-federal_taxes = net_income*federal_tax_rate
-# TODO: implement state tax calculations using progressive scale (for those states that are not flat/no tax)
-state_taxes = net_income*CO
+federal_taxes = net_income * federal_tax_rate
+# TODO: implement state tax calculations using progressive scale
+state_taxes = net_income * state
 income_taxes = federal_taxes + state_taxes
 take_home = net_income - federal_taxes - state_taxes
 # Group insurance spending together
@@ -75,3 +72,4 @@ def print_vars():
 			print(name,":", value) 
 
 print_report()
+# print_vars()

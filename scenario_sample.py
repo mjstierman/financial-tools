@@ -7,6 +7,45 @@
 # ** DO ** use only positive numbers for both income and expenses.
 # **DO NOT** use negative numbers for debts/bills, the math takes care of that.
 
+# TODO: Put pre-tax and post-tax items into an array? This would enable users to easily add their own key:value pairs that may have been overlooked.
+
+#### Set up taxation variables. Do not change these. ####
+# Used to calculate federal and state taxes
+# TODO: calculate federal taxes using progressive scale
+federal_tax_rate = .26
+
+# States with no income tax
+AK = 0
+FL = 0
+NH = 0
+NV = 0
+SD = 0
+TN = 0
+TX = 0
+WA = 0
+WY = 0
+
+# States with flat income tax
+AZ = .025
+CO = .044
+GA = .0549
+IA = .039
+ID = .058
+IL = .0495
+IN = .0305
+KY = .04
+MI = .0425
+NC = .045
+PA = .0307
+UT = .0465
+
+# enter a custom tax rate
+custom = 0
+
+# States with progressive tax
+# meh.
+
+#### Set up income and expense variables. DO change these. ####
 # Pre Tax
 pretax_income = 3000
 pretax_insurance_health = 150
@@ -15,7 +54,7 @@ pretax_insurance_vision = 0
 pretax_insurance_life = 0
 pretax_retire_contrib = .06
 pretax_retire_match = .03
-federal_tax_rate = .26
+
 # Post Tax
 insurance_legal = 0
 other_income = 0
@@ -46,30 +85,5 @@ phone_landline = 0
 discrectionary = 0
 large_purchase = 0
 
-# States with no income tax
-AK = 0
-FL = 0
-NH = 0
-NV = 0
-SD = 0
-TN = 0
-TX = 0
-WA = 0
-WY = 0
-
-# States with flat income tax
-AZ = .025
-CO = .044
-GA = .0549
-IA = .039
-ID = .058
-IL = .0495
-IN = .0305
-KY = .04
-MI = .0425
-NC = .045
-PA = .0307
-UT = .0465
-
-# States with progressive tax
-# meh.
+# Pick the state. See taxation variables for supported states
+state = CO
