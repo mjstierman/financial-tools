@@ -1,9 +1,11 @@
 # Generates financial reports over a given timeframe
 
+import sys
+
 try:
 	import pandas
 except:
-	sys.exit("This script requires pandas. Please install 'pip3 install pandas'")
+	sys.exit("This script requires pandas. Please install `pip3 install pandas`")
 	exit()
 
 import argparse
