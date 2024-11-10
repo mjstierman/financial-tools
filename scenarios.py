@@ -8,9 +8,16 @@
 # It's not perfect, since not all months have the same number of paychecks.
 # The calculator assumes 40 hour work weeks.
 
+import sys
 import argparse
 import locale
+import numpy as np
 from scenario_sample import *
+try:
+	from openfisk.nl.income import calculate_income_tax
+except:
+	sys.exit("This script requires openfisk. Please install `pip3 install openfisk`")
+	exit()
 
 # TODO: Add argument to select variable file
 # TODO: Add argument to print-to-file scenario report
@@ -22,13 +29,30 @@ from scenario_sample import *
 # Format currency
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
-# Calculate Net Icnome
+# Calculate Net Income after deductions
 deductions = (pretax_insurance_health - pretax_insurance_dental - pretax_insurance_vision - pretax_insurance_life - (pretax_income*pretax_retire_contrib))
 net_income = pretax_income - deductions + other_income
-# TODO: implement actual federal tax calculations using prosessive scale
-federal_taxes = net_income * federal_tax_rate
-# TODO: implement state tax calculations using progressive scale
-state_taxes = net_income * state
+
+# Use net income to determine federal tax liability
+def fed_tax_calc():
+	taxable_incomes = np.array([net_income])
+	# Define tax bands (lower bounds) for the progressive tax system
+	tax_bands = np.array([0, 11001, 44726, 95376, 182101, 231251, 578126, np.inf])
+	# Define the tax rates for the respective bands
+	tax_rates =  np.array([0.1, 0.12, 0.22, 0.24, 0.32, 0.35, 0.37])
+	# Calculate the income tax for each income in taxable_incomes
+	federal_taxes = calculate_income_tax(taxable_incomes, tax_bands, tax_rates)
+	federal_taxes = federal_taxes[0]
+	return federal_taxes
+federal_taxes = fed_tax_calc()
+
+# Use net income to determine state tax liability
+def state_tax_calc():
+	state_tax = state
+	state_taxes = net_income * state_tax
+	return state_taxes
+state_taxes = state_tax_calc()
+
 income_taxes = federal_taxes + state_taxes
 take_home = net_income - federal_taxes - state_taxes
 # Group insurance spending together
@@ -46,7 +70,8 @@ gross_savings = take_home-net_spend+((pretax_retire_contrib+pretax_retire_match)
 def print_report():
 	print('Here is your report:')
 	print('Your take-home pay is ', locale.currency(take_home))
-	print('Your taxes are about  ', locale.currency(income_taxes))
+	print('Your federal taxes are', locale.currency(federal_taxes))
+	print('Your state taxes are  ', locale.currency(state_taxes))
 	print('Your expenses are     ', locale.currency(net_spend))
 	print('Your net month savings', locale.currency(net_savings))
 	print()
