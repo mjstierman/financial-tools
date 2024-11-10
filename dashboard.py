@@ -22,9 +22,6 @@ last_day = last_day_calc[1]
 start_date = todays_date.replace(day=1)
 end_date = todays_date.replace(day=last_day)
 
-def budget_spend():
-	print("This is where envelope spending goes.")
-
 def spending_report():
 	# Format the 'Date' column to be a date datatype
 	daybook_data['Date'] = pandas.to_datetime(daybook_data['Date'])
@@ -38,6 +35,4 @@ def spending_report():
 	# Print the resulting pivot table
 	print(table)
 
-# budget_spend()
-print()
 spending_report()
