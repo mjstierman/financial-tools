@@ -23,7 +23,7 @@ from scenario_sample import *
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # Calculate Net Icnome
-deductions = (pretax_insurance_health - pretax_insurance_dental - pretax_insurance_vision - pretax_insurance_life - (pretax_income*pretax_retire_contrib))
+deductions = pretax_insurance_health + pretax_insurance_dental + pretax_insurance_vision + pretax_insurance_life + (pretax_income*pretax_retire_contrib)
 net_income = pretax_income - deductions + other_income
 # TODO: implement actual federal tax calculations using prosessive scale
 federal_taxes = net_income * federal_tax_rate
