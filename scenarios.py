@@ -12,7 +12,6 @@ import argparse
 import locale
 import sys
 
-# TODO: Add argument to print-to-file scenario report
 parser = argparse.ArgumentParser()
 parser.add_argument("-f", "--file", help="Scenario variable file. Default `scenario_data.py`")
 parser.add_argument("-e", "--export", help="Use this to export to a file. Usage: scenarios.py -e scenario_a.txt")
