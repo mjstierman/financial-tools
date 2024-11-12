@@ -11,8 +11,6 @@
 
 #### Set up taxation variables. Do not change these. ####
 # Used to calculate federal and state taxes
-# TODO: calculate federal taxes using progressive scale
-federal_tax_rate = .26
 
 # States with no income tax
 AK = 0
@@ -86,4 +84,4 @@ discrectionary = 0
 large_purchase = 0
 
 # Pick the state. See taxation variables for supported states
-state = CO
+state = FL
