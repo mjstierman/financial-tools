@@ -12,6 +12,7 @@ import sys
 import argparse
 import locale
 import numpy as np
+
 from scenario_sample import *
 try:
 	from openfisk.nl.income import calculate_income_tax
@@ -19,12 +20,18 @@ except:
 	sys.exit("This script requires openfisk. Please install `pip3 install openfisk`")
 	exit()
 
-# TODO: Add argument to select variable file
-# TODO: Add argument to print-to-file scenario report
-# parser = argparse.ArgumentParser()
-# parser.add_argument("-f", "--file", type=open, default="scenario_data.py", help="Scenario variable file. Default `scenario_data.py`")
-# parser.add_argument("-e", "--export", help="Use this to export to a file. Usage: scenarios.py -e scenario_a.txt")
-# args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument("-f", "--file", help="Scenario variable file. Default `scenario_data.py`")
+parser.add_argument("-e", "--export", help="Use this to export to a file. Usage: scenarios.py -e scenario_a.txt")
+args = parser.parse_args()
+
+# Import variables from (and if) a specificed file
+if args.file:
+	file = args.file
+	with open(file) as vars:
+		exec(vars.read())
+else:
+	from scenario_sample import *
 
 # Format currency
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
@@ -89,7 +96,11 @@ def print_report():
 
 # If the export feature is used, include the variables in the report
 def print_vars():
-	print('These are the values you used:')
+	export_file = args.export
+	sys.stdout = open(export_file,'wt')
+	print_report()
+	print()
+	print('And these are the values you used:')
 	vars = globals()
 	for name in vars:
 		if not name.startswith('__'):
@@ -97,4 +108,5 @@ def print_vars():
 			print(name,":", value) 
 
 print_report()
-# print_vars()
+if args.export:
+	print_vars()
