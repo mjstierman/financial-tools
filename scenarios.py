@@ -42,26 +42,29 @@ net_income = pretax_income - deductions + other_income
 
 # Use net income to determine federal tax liability
 def fed_tax_calc():
-	taxable_incomes = np.array([net_income])
+	annual_net_income = ((net_income/160)*2080)
+	taxable_incomes = np.array([annual_net_income])
 	# Define tax bands (lower bounds) for the progressive tax system
 	tax_bands = np.array([0, 11001, 44726, 95376, 182101, 231251, 578126, np.inf])
 	# Define the tax rates for the respective bands
 	tax_rates =  np.array([0.1, 0.12, 0.22, 0.24, 0.32, 0.35, 0.37])
 	# Calculate the income tax for each income in taxable_incomes
 	federal_taxes = calculate_income_tax(taxable_incomes, tax_bands, tax_rates)
-	federal_taxes = federal_taxes[0]
-	return federal_taxes
-federal_taxes = fed_tax_calc()
+	monthly_federal_taxes = federal_taxes[0]/12
+	return monthly_federal_taxes
+monthly_federal_taxes = fed_tax_calc()
 
 # Use net income to determine state tax liability
 def state_tax_calc():
+	annual_net_income = ((net_income/160)*2080)
 	state_tax = state
-	state_taxes = net_income * state_tax
-	return state_taxes
-state_taxes = state_tax_calc()
+	state_taxes = annual_net_income * state_tax
+	monthly_state_taxes = state_taxes/12
+	return monthly_state_taxes
+monthly_state_taxes = state_tax_calc()
 
-income_taxes = federal_taxes + state_taxes
-take_home = net_income - federal_taxes - state_taxes
+income_taxes = monthly_federal_taxes + monthly_state_taxes
+take_home = net_income - income_taxes
 # Group insurance spending together
 insurance = insurance_home + insurance_mortgage + insurance_auto + insurance_pet + insurance_life + insurance_accident + insurance_critillness + insurance_health + insurance_dental + insurance_vision
 # Group utility spending together
@@ -77,8 +80,8 @@ gross_savings = take_home-net_spend+((pretax_retire_contrib+pretax_retire_match)
 def print_report():
 	print('Here is your report:')
 	print('Your take-home pay is ', locale.currency(take_home))
-	print('Your federal taxes are', locale.currency(federal_taxes))
-	print('Your state taxes are  ', locale.currency(state_taxes))
+	print('Your federal taxes are', locale.currency(monthly_federal_taxes))
+	print('Your state taxes are  ', locale.currency(monthly_state_taxes))
 	print('Your expenses are     ', locale.currency(net_spend))
 	print('Your net month savings', locale.currency(net_savings))
 	print()
