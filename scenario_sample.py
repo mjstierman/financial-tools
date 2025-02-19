@@ -1,49 +1,16 @@
-# scenarios.ini
-# Use this file to customize your scenario reports.
-#
-# Divide annual salary by 2080, then multiply by 160 to get a rough monthly.
-# Or multiply your hourly wage by 160.
-# The default values are my current income and last month's expenses
-# ** DO ** use only positive numbers for both income and expenses.
-# **DO NOT** use negative numbers for debts/bills, the math takes care of that.
+"""
+Use this file to customize your scenario reports.
+Divide annual salary by 2080, then multiply by 160 to get a rough monthly.
+Or multiply your hourly wage by 160.
+The default values are my current income and last month's expenses
 
-# TODO: Put pre-tax and post-tax items into an array? This would enable users to easily add their own key:value pairs that may have been overlooked.
+** DO ** use only positive numbers for both income and expenses.
+**DO NOT** use negative numbers for debts/bills, the math takes care of that
 
-#### Set up taxation variables. Do not change these. ####
-# Used to calculate federal and state taxes
+TODO: Put pre-tax and post-tax items into an array? This would enable users to easily add their own key:value pairs that may have been overlooked.
+"""
 
-# States with no income tax
-AK = 0
-FL = 0
-NH = 0
-NV = 0
-SD = 0
-TN = 0
-TX = 0
-WA = 0
-WY = 0
-
-# States with flat income tax
-AZ = .025
-CO = .044
-GA = .0549
-IA = .039
-ID = .058
-IL = .0495
-IN = .0305
-KY = .04
-MI = .0425
-NC = .045
-PA = .0307
-UT = .0465
-
-# enter a custom tax rate
-custom = 0
-
-# States with progressive tax
-# meh.
-
-#### Set up income and expense variables. DO change these. ####
+# Set up income and expense variables.
 # Pre Tax
 pretax_income = 3000
 pretax_insurance_health = 150
@@ -56,6 +23,7 @@ pretax_retire_match = .03
 # Post Tax
 insurance_legal = 0
 other_income = 0
+
 # Post Pay Spending
 loans_mortgage = 1000
 loans_student = 500
@@ -82,6 +50,3 @@ phone_cellular = 15
 phone_landline = 0
 discrectionary = 0
 large_purchase = 0
-
-# Pick the state. See taxation variables for supported states
-state = FL

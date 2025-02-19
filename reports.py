@@ -1,15 +1,8 @@
 # Generates financial reports over a given timeframe
 
 import sys
-
-try:
-	import pandas
-except:
-	sys.exit("This script requires pandas. Please install `pip3 install pandas`")
-	exit()
-
 import argparse
-import pandas
+from fin_tools import spending_report, spending_table
 from datetime import datetime
 
 # Grab input from cli arguments
@@ -37,29 +30,9 @@ else:
 accounts_data = pandas.read_csv(args.accounts)
 daybook_data = pandas.read_csv(args.daybook)
 
-def spending_report():
-	# Format the 'Date' column to be a date datatype
-	daybook_data['Date'] = pandas.to_datetime(daybook_data['Date'], format='%Y-%m-%d')
-	# Filter the DataFrame based on whether start and end dates were provided
-	filtered_df = daybook_data.loc[(daybook_data['Date'] >= start_date) & (daybook_data['Date'] <= end_date)]
-	table = filtered_df.pivot_table(index="Date", columns="Category", values="Amount", aggfunc='sum', fill_value=0, margins=True)
-	# Print the resulting pivot table
-	print(table)
-
-# Net Worth Calculator
-def net_worth():
-	# Format the 'Date' column to be a date datatype
-	accounts_data['Date'] = pandas.to_datetime(accounts_data['Date'], format="%Y-%m-%d")
-	# Filter the DataFrame based on whether start and end dates were provided
-	filtered_df = accounts_data.loc[(accounts_data['Date'] >= start_date) & (accounts_data['Date'] <= end_date)]
-	# define pivot table bounds
-	table = filtered_df.pivot_table(index="Date", columns="Class", values="Balance", aggfunc='sum', fill_value=0, margins=True)
-	# Print the resulting pivot table
-	print(table)
-
 print("################ Report for",start_date,"through",end_date,"#################")
 print("############################### Total Spend Report ############################")
-spending_report()
+spending_report(daybook_data)
 print("################################### Net Worth #################################")
-net_worth()
+net_worth(accounts_data)
 print("################################## End Reports ################################")

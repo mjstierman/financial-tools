@@ -1,19 +1,22 @@
-# This calculator includes fields for common recurring expenses
-# As well as projected income.
-# Simply input your predicted expenses and income in the scenario_data.py
-# then run the calculator.
-# You will see NET INCOME and also calculations for savings
-# goals based on 3- 6- 12- month buffers.
-# 
-# It's not perfect, since not all months have the same number of paychecks.
-# The calculator assumes 40 hour work weeks.
+"""
+This calculator includes fields for common recurring expenses
+As well as projected income.
+Simply input your predicted expenses and income in the scenario_data.py
+then run the calculator.
+You will see NET INCOME and also calculations for savings
+goals based on 3- 6- 12- month buffers.
+
+It's not perfect, since not all months have the same number of paychecks.
+The calculator assumes 40 hour work weeks.
+"""
 
 import sys
 import argparse
 import locale
-import numpy as np
-
+import numpy
+from fin_tools import fed_tax_calc, state_tax_calc
 from scenario_sample import *
+
 try:
 	from openfisk.nl.income import calculate_income_tax
 except:
@@ -41,27 +44,10 @@ deductions = pretax_insurance_health + pretax_insurance_dental + pretax_insuranc
 net_income = pretax_income - deductions + other_income
 
 # Use net income to determine federal tax liability
-def fed_tax_calc():
-	annual_net_income = ((net_income/160)*2080)
-	taxable_incomes = np.array([annual_net_income])
-	# Define tax bands (lower bounds) for the progressive tax system
-	tax_bands = np.array([0, 11001, 44726, 95376, 182101, 231251, 578126, np.inf])
-	# Define the tax rates for the respective bands
-	tax_rates =  np.array([0.1, 0.12, 0.22, 0.24, 0.32, 0.35, 0.37])
-	# Calculate the income tax for each income in taxable_incomes
-	federal_taxes = calculate_income_tax(taxable_incomes, tax_bands, tax_rates)
-	monthly_federal_taxes = federal_taxes[0]/12
-	return monthly_federal_taxes
-monthly_federal_taxes = fed_tax_calc()
+monthly_federal_taxes = fed_tax_calc(net_income)
 
 # Use net income to determine state tax liability
-def state_tax_calc():
-	annual_net_income = ((net_income/160)*2080)
-	state_tax = state
-	state_taxes = annual_net_income * state_tax
-	monthly_state_taxes = state_taxes/12
-	return monthly_state_taxes
-monthly_state_taxes = state_tax_calc()
+monthly_state_taxes = state_tax_calc(net_income)
 
 income_taxes = monthly_federal_taxes + monthly_state_taxes
 take_home = net_income - income_taxes
